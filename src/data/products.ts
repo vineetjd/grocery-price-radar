@@ -1,8 +1,11 @@
-export const supermarkets = [
+import { Product, Supermarket } from '../types';
+
+export const supermarkets: Supermarket[] = [
   {
     id: 'tesco',
     name: 'Tesco',
     color: '#00539f',
+    logo: 'tesco-logo.svg',
     website: 'https://www.tesco.com',
     tagline: 'Clubcard Prices',
     loyalty: 'Clubcard'
@@ -10,7 +13,8 @@ export const supermarkets = [
   {
     id: 'sainsburys',
     name: "Sainsbury's",
-    color: '#ec7000',
+    color: '#f06c00',
+    logo: 'sainsburys-logo.svg',
     website: 'https://www.sainsburys.co.uk',
     tagline: 'Nectar Prices',
     loyalty: 'Nectar'
@@ -19,6 +23,7 @@ export const supermarkets = [
     id: 'asda',
     name: 'Asda',
     color: '#78be20',
+    logo: 'asda-logo.svg',
     website: 'https://groceries.asda.com',
     tagline: 'Rollback Savings',
     loyalty: 'Rewards'
@@ -26,38 +31,42 @@ export const supermarkets = [
   {
     id: 'morrisons',
     name: 'Morrisons',
-    color: '#00543d',
+    color: '#00853e',
+    logo: 'morrisons-logo.svg',
     website: 'https://groceries.morrisons.com',
-    tagline: 'Price Crunch',
+    tagline: 'More Card',
     loyalty: 'More'
   },
   {
     id: 'aldi',
     name: 'Aldi',
-    color: '#00a6a0',
+    color: '#001e62',
+    logo: 'aldi-logo.svg',
     website: 'https://www.aldi.co.uk',
-    tagline: 'Everyday Low Price',
-    loyalty: 'Saver'
+    tagline: 'Everyday Amazing',
+    loyalty: 'None'
   },
   {
     id: 'lidl',
     name: 'Lidl',
     color: '#0050aa',
+    logo: 'lidl-logo.svg',
     website: 'https://www.lidl.co.uk',
-    tagline: 'Lidl Plus',
-    loyalty: 'Plus'
+    tagline: 'Big on Quality',
+    loyalty: 'Lidl Plus'
   },
   {
     id: 'waitrose',
     name: 'Waitrose',
-    color: '#00663a',
+    color: '#688d2c',
+    logo: 'waitrose-logo.svg',
     website: 'https://www.waitrose.com',
-    tagline: 'Quality First',
-    loyalty: 'MyWaitrose'
+    tagline: 'Essential Waitrose',
+    loyalty: 'myWaitrose'
   }
 ];
 
-export const products = [
+export const products: Product[] = [
   {
     id: 'milk-2l',
     name: 'Semi-skimmed Milk',

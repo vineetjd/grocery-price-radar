@@ -1,6 +1,11 @@
 import { formatCurrency, formatMovement } from '../utils/format';
+import { DerivedProduct } from '../types';
 
-function BestValueGrid({ products }) {
+interface BestValueGridProps {
+  products: DerivedProduct[];
+}
+
+function BestValueGrid({ products }: BestValueGridProps) {
   if (!products.length) return null;
   return (
     <section className="panel">

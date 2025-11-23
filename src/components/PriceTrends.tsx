@@ -1,8 +1,14 @@
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 import { getPriceTimeline } from '../services/dataService';
 import { formatCurrency, formatDate } from '../utils/format';
+import { DerivedProduct, Supermarket } from '../types';
 
-function PriceTrends({ product, supermarkets }) {
+interface PriceTrendsProps {
+  product: DerivedProduct | null;
+  supermarkets: Supermarket[];
+}
+
+function PriceTrends({ product, supermarkets }: PriceTrendsProps) {
   if (!product) {
     return (
       <section className="panel">
@@ -46,16 +52,16 @@ function PriceTrends({ product, supermarkets }) {
   );
 }
 
-const PriceTooltip = ({ active, payload, label }) => {
+const PriceTooltip = ({ active, payload, label }: any) => {
   if (!active || !payload?.length) return null;
   return (
     <div className="tooltip">
       <p>{label}</p>
       <ul>
-        {payload.map((item) => (
+        {payload.map((item: any) => (
           <li key={item.dataKey}>
-            <span>{item.dataKey.toUpperCase()}</span>
-            <strong>{formatCurrency(item.value)}</strong>
+            <span>{item.dataKey?.toString().toUpperCase()}</span>
+            <strong>{formatCurrency(item.value as number)}</strong>
           </li>
         ))}
       </ul>

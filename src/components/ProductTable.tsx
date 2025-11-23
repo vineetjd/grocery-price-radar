@@ -1,6 +1,14 @@
 import { formatCurrency, formatDate, formatMovement } from '../utils/format';
+import { DerivedProduct } from '../types';
+import { Link } from 'react-router-dom';
 
-function ProductTable({ products, onSelect, selectedId }) {
+interface ProductTableProps {
+  products: DerivedProduct[];
+  onSelect: (product: DerivedProduct) => void;
+  selectedId?: string;
+}
+
+function ProductTable({ products, onSelect, selectedId }: ProductTableProps) {
   if (!products.length) {
     return (
       <section className="panel">
@@ -37,7 +45,9 @@ function ProductTable({ products, onSelect, selectedId }) {
               >
                 <td>
                   <div className="product-cell">
-                    <strong>{product.name}</strong>
+                    <Link to={`/product/${product.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                      <strong>{product.name}</strong>
+                    </Link>
                     <p>
                       {product.brand} • {product.size} • {product.category}
                     </p>
@@ -72,7 +82,7 @@ function ProductTable({ products, onSelect, selectedId }) {
   );
 }
 
-const getMovementTone = (value) => {
+const getMovementTone = (value: number) => {
   if (value < 0) return 'down';
   if (value > 0) return 'up';
   return 'flat';

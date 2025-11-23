@@ -1,9 +1,10 @@
 import { products, supermarkets } from '../data/products';
+import { Product, Supermarket, DerivedProduct, BasketComparison, BasketTotal } from '../types';
 
-const supermarketIndex = new Map(supermarkets.map((market) => [market.id, market]));
-const clone = (value) => JSON.parse(JSON.stringify(value));
+const supermarketIndex = new Map<string, Supermarket>(supermarkets.map((market) => [market.id, market]));
+const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value));
 
-const addDerivedFields = (product) => {
+const addDerivedFields = (product: Product): DerivedProduct => {
   const sortedPrices = [...product.prices].sort((a, b) => a.price - b.price);
   const cheapest = sortedPrices[0];
   const priciest = sortedPrices[sortedPrices.length - 1];
@@ -28,11 +29,17 @@ const addDerivedFields = (product) => {
   };
 };
 
-export function listSupermarkets() {
+export function listSupermarkets(): Supermarket[] {
   return clone(supermarkets);
 }
 
-export function listProducts({ category, searchTerm, staplesOnly } = {}) {
+interface ListProductsOptions {
+  category?: string;
+  searchTerm?: string;
+  staplesOnly?: boolean;
+}
+
+export function listProducts({ category, searchTerm, staplesOnly }: ListProductsOptions = {}): DerivedProduct[] {
   const normalised = products
     .filter((product) => {
       const matchesCategory = category ? product.category === category : true;
@@ -46,11 +53,11 @@ export function listProducts({ category, searchTerm, staplesOnly } = {}) {
   return normalised;
 }
 
-export function buildBasketTotals(productsList = products) {
+export function buildBasketTotals(productsList: Product[] = products): BasketComparison {
   const totals = supermarkets.reduce((acc, market) => {
     acc[market.id] = 0;
     return acc;
-  }, {});
+  }, {} as Record<string, number>);
 
   productsList.forEach((product) => {
     product.prices.forEach((pricePoint) => {
@@ -58,8 +65,8 @@ export function buildBasketTotals(productsList = products) {
     });
   });
 
-  const entries = Object.entries(totals).map(([marketId, total]) => ({
-    market: supermarketIndex.get(marketId),
+  const entries: BasketTotal[] = Object.entries(totals).map(([marketId, total]) => ({
+    market: supermarketIndex.get(marketId)!,
     total: Number(total.toFixed(2))
   }));
 
@@ -72,18 +79,18 @@ export function buildBasketTotals(productsList = products) {
   };
 }
 
-export function getPriceTimeline(product) {
+export function getPriceTimeline(product: Product): Record<string, any>[] {
   return product.priceHistory.map((entry) => ({
     date: entry.date,
     ...entry.points
   }));
 }
 
-export function getCategoryList() {
+export function getCategoryList(): string[] {
   return Array.from(new Set(products.map((product) => product.category)));
 }
 
-export function getTopMovers(limit = 3) {
+export function getTopMovers(limit = 3): DerivedProduct[] {
   return listProducts()
     .slice()
     .sort((a, b) => a.movement - b.movement)

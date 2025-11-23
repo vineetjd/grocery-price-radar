@@ -1,6 +1,15 @@
 import { formatCurrency, formatDate } from '../utils/format';
+import { BasketTotal } from '../types';
 
-function Hero({ productCount, stapleCount, lastUpdated, leader, spread }) {
+interface HeroProps {
+  productCount: number;
+  stapleCount: number;
+  lastUpdated: string;
+  leader: BasketTotal | null;
+  spread: number;
+}
+
+function Hero({ productCount, stapleCount, lastUpdated, leader, spread }: HeroProps) {
   return (
     <header className="hero">
       <div>

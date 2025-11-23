@@ -1,3 +1,13 @@
+interface FiltersProps {
+  categories: string[];
+  category: string;
+  onCategoryChange: (category: string) => void;
+  searchTerm: string;
+  onSearch: (term: string) => void;
+  staplesOnly: boolean;
+  onStaplesToggle: (enabled: boolean) => void;
+}
+
 function Filters({
   categories,
   category,
@@ -6,7 +16,7 @@ function Filters({
   onSearch,
   staplesOnly,
   onStaplesToggle
-}) {
+}: FiltersProps) {
   return (
     <section className="panel filters-panel">
       <div className="input-group">

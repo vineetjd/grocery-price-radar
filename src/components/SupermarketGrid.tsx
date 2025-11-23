@@ -1,4 +1,10 @@
-function SupermarketGrid({ basket }) {
+import { BasketComparison } from '../types';
+
+interface SupermarketGridProps {
+  basket: BasketComparison;
+}
+
+function SupermarketGrid({ basket }: SupermarketGridProps) {
   if (!basket?.entries?.length) return null;
   return (
     <section className="panel">

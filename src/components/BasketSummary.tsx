@@ -1,6 +1,11 @@
 import { formatCurrency } from '../utils/format';
+import { BasketComparison } from '../types';
 
-function BasketSummary({ basket }) {
+interface BasketSummaryProps {
+  basket: BasketComparison;
+}
+
+function BasketSummary({ basket }: BasketSummaryProps) {
   if (!basket?.entries?.length) return null;
 
   const spread = basket.trailing && basket.leader ? basket.trailing.total - basket.leader.total : 0;

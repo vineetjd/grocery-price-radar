@@ -1,6 +1,11 @@
 import { formatMovement, formatCurrency } from '../utils/format';
+import { DerivedProduct } from '../types';
 
-function PriceAlerts({ movers }) {
+interface PriceAlertsProps {
+  movers: DerivedProduct[];
+}
+
+function PriceAlerts({ movers }: PriceAlertsProps) {
   if (!movers.length) return null;
 
   return (
