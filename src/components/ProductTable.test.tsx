@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import ProductTable from './ProductTable';
 import { DerivedProduct } from '../types';
 
@@ -23,26 +24,29 @@ const mockProduct: DerivedProduct = {
 describe('ProductTable', () => {
     it('renders product information', () => {
         render(
-            <ProductTable
-                products={[mockProduct]}
-                onSelect={() => { }}
-                selectedId={undefined}
-            />
+            <MemoryRouter>
+                <ProductTable
+                    products={[mockProduct]}
+                    onSelect={() => { }}
+                    selectedId={undefined}
+                />
+            </MemoryRouter>
         );
 
         expect(screen.getByText('Test Product')).toBeInTheDocument();
-        // Use regex for partial match since brand is part of a larger string
         expect(screen.getByText(/Test Brand/)).toBeInTheDocument();
     });
 
     it('calls onSelect when a row is clicked', () => {
         const handleSelect = vi.fn();
         render(
-            <ProductTable
-                products={[mockProduct]}
-                onSelect={handleSelect}
-                selectedId={undefined}
-            />
+            <MemoryRouter>
+                <ProductTable
+                    products={[mockProduct]}
+                    onSelect={handleSelect}
+                    selectedId={undefined}
+                />
+            </MemoryRouter>
         );
 
         fireEvent.click(screen.getByText('Test Product'));
@@ -51,11 +55,13 @@ describe('ProductTable', () => {
 
     it('highlights the selected row', () => {
         render(
-            <ProductTable
-                products={[mockProduct]}
-                onSelect={() => { }}
-                selectedId="test-product"
-            />
+            <MemoryRouter>
+                <ProductTable
+                    products={[mockProduct]}
+                    onSelect={() => { }}
+                    selectedId="test-product"
+                />
+            </MemoryRouter>
         );
 
         const row = screen.getByRole('row', { name: /Test Product/i });
